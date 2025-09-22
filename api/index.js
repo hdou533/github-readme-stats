@@ -43,6 +43,24 @@ export default async (req, res) => {
   } = req.query;
   res.setHeader("Content-Type", "image/svg+xml");
 
+  const allowedUsername = "hdou533"
+  if (username !== allowedUsername) {
+    return res.send(
+      renderError(
+        "Personal use only",
+        "Please deploy your own instance",
+        {
+          title_color,
+          text_color,
+          bg_color,
+          border_color,
+          theme,
+          show_repo_link: false,
+        }
+      )
+    )
+  }
+
   if (whitelist && !whitelist.includes(username)) {
     return res.send(
       renderError(
